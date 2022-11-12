@@ -1,0 +1,56 @@
+{% extends 'basic.html' %}
+
+{% load static %}
+{% load extras %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/main-search.css' %}">
+{% endblock link %}
+
+{% block title %}Yorefit | For all your fitness needs{% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    {% if products %}
+    <section class="sec-2">
+        <div class="category">
+            <h6 class="head">{{products|length}} Results Found!</h6>
+            <div class="products">
+                {% for i in products %}
+                <div class="product">
+                    <img class="prod-img" src="/media/{{i.img}}" alt="">
+                    <div class="quick-view">
+                        <a class="qv-link" href="/product/{{i.product_id}}">QUICK VIEW</a>
+                    </div>
+                    <div class="prod-desc">
+                        <h4 class="prod-name">{{i.name}}</h4>
+                        <p class="prod-price"><strong>${{i.price}}</strong></p>
+                    </div>
+                    <div class="add-to-cart">
+                        <button class="btn-add-to-cart">
+                            Add To Cart
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </section>
+    {% else %}
+    <div class="error">
+        <div class="search-help">
+        <h6 class="head no-results">No search results found for {{query}}</h6>
+            <h6 class="suggestions">Try searching:</h6>
+            <ul>
+                <li>Check your search for typos</li>
+                <li>Use more generic search terms</li>
+                <li>The product you're searching for may be discontinued</li>
+            </ul>
+        </div>
+        <img class="no-results--img" src="{% static 'images/no-results-search.png' %}" alt="">
+    </div>
+    {% endif %}
+</div>
+{% endblock main %}

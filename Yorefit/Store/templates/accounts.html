@@ -1,0 +1,153 @@
+{% extends 'basic.html' %}
+
+{% load static %}
+{% load extras %}
+
+{% block link %}
+<!-- <link rel="stylesheet" href="{% static 'css/main-accounts.css' %}"> -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+    main{
+    display: flex;
+    justify-content: center;
+    font-family: Rajdhani, sans-serif;
+    height: 85vh;
+    width: 100%;
+    }
+    .cover {
+    
+    background-color: white;
+    width: 100%;
+    margin: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    
+}
+
+.profile{
+    width: 76%;
+    }
+    .head{
+        width: 100%;
+        height: 100px;
+        display: flex;
+    }
+    .content{
+        display: flex;
+        justify-content: space-evenly;
+        height: 35px;
+        align-items: center;
+        background-color: black;
+        color: white;
+    }
+    .activity {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        
+        height: 53vh;
+    }
+    .recent {
+        width: 60%;
+        height: 100%;
+        border-right: 1px dotted black;
+        
+    }
+    .messages{
+        height: 100%;
+        width: 40%;
+        
+    }
+
+    .voucher {
+        width: 24%;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+</style>
+{% endblock link %}
+
+{% block title %}Account | Yorefit{% endblock title %}1
+
+{% block main %}
+<main>
+    <div class="cover">
+        <div class="profile">
+            <div class="head">
+                <div style="width: 10%;;margin: 10px; border: 1px solid black;">
+                <img src="{% static 'images/user-icon.png' %}" alt="image here" width="100%" height="100%">
+            </div>      
+                <div style="align-self:center">
+                    <h2>
+                        Name: {{request.user.username}}
+                    </h2>
+                    Member
+                </div>
+                <div class="infos" style="margin: auto;">
+                    <div>Joined: {{request.user.date_joined.date}}</div>
+                    <div>Last login: {{request.user.last_login.date}}</div>
+                </div>      
+            </div>
+            <div class="content" >
+                <div>Email</div>
+                <div onclick="window.location='{% url 'StoreHome' %}'"  style="cursor: pointer;">Shop</div>
+                <div onclick="window.location={% url 'StoreCart' %}"  style="cursor: pointer;">Cart</div>
+                <div onclick="window.location='/logout'" style="cursor: pointer;">Logout</div>
+            </div>
+            <div class="activity">
+                <div class="recent">
+                    <div style=" display: flex; align-items: center; justify-content:  center; height: 50px;">
+                        <h3>Recent</h3>
+                    </div>
+                    <div class="activities">
+                        <div style="margin: 5px; padding: 5px;">
+                            <div style="border: 1px solid black; padding:5px; overflow-y: scroll; height: 270px; ">
+                                <div style="text-align: right;">
+                                    <h4>HISTORY</h4>
+                                </div>
+                                {% for cart in history %}
+                                <div style="display: flex; margin-bottom: 2px; border-bottom:1px solid gray ;">
+                                    <div style="width: 40px; height:40px">
+                                    <img src="{{cart|element:2}}" alt="img " width="100%" height="100%">
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                        <div style="padding-left: 4px;"> Name: {{cart|element:1}} </div>
+                                        <div>QTY: {{cart|element:0}} </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="messages">
+                    <div style=" display: flex; align-items: center; justify-content:  center; height: 50px;">
+                        <h3>MESSAGES</h3>
+                    </div>
+                    <div class="activities">
+                        <div style="margin: 5px; padding: 5px;">
+                            <div  style="border: 1px solid black; padding:5px">
+                                <div style="text-align: right;">
+                                    <h4>Q&A</h4>
+                                </div>
+                                No messages to show
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="voucher">
+            <div class="head" style="justify-content: center; align-items: center;">
+                <h2>VOUCHERS</h2>
+            </div>
+            <div style="text-align: center;">
+                NO VOUCHERS YET
+            </div>
+        </div>
+    </div>
+</main>
+    
+{% endblock %}
